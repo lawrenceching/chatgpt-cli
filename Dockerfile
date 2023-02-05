@@ -16,7 +16,6 @@ WORKDIR /app
 COPY --from=builder /build/index.mjs .
 COPY --from=builder /build/node_modules .
 COPY --from=ttydBuilder /build/ttyd.x86_64 /app/ttyd
-COPY ./.build ttyd
 COPY ./bin .
 
 CMD ["bash", "/app/start.sh"]
