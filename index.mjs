@@ -11,6 +11,8 @@ import prompts from 'prompts'
     const api = new ChatGPTAPI({apiKey: process.env.OPENAI_API_KEY})
     const debug = process.env.DEBUG === 'true'
 
+    let res = null
+
     while (true) {
         const response = await prompts({
             type: 'text',
@@ -20,18 +22,25 @@ import prompts from 'prompts'
 
         const question = response.value;
 
-        if(question === undefined) {
+        if (question === undefined) {
             // User press Ctrl+C when prompted
             break;
         }
 
-        if(question.trim().length ===0) {
+        if (question.trim().length === 0) {
             continue
         }
 
-        const res = await oraPromise(api.sendMessage(question), {
-            text: question
-        })
+        if(res === null) {
+            res = await oraPromise(api.sendMessage(question), {
+                text: question
+            })
+        } else {
+            res = await api.sendMessage(question, {
+                conversationId: !!res ? res.conversationId : null,
+                parentMessageId: !!res ? res.id : null,
+            })
+        }
 
         if (debug)
             console.log(res);
