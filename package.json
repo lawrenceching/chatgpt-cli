@@ -1,0 +1,14 @@
+{
+  "name": "chatgpt-cli",
+  "version": "1.0.0",
+  "description": "Interact with ChatGPT in CLI",
+  "main": "index.js",
+  "author": "Lawrence Ching",
+  "license": "MIT",
+  "dependencies": {
+    "chatgpt": "^4.1.1",
+    "dotenv-safe": "^8.2.0",
+    "ora": "^6.1.2",
+    "prompts": "^2.4.2"
+  }
+}
