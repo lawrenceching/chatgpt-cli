@@ -20,6 +20,15 @@ import prompts from 'prompts'
 
         const question = response.value;
 
+        if(question === undefined) {
+            // User press Ctrl+C when prompted
+            break;
+        }
+
+        if(question.trim().length ===0) {
+            continue
+        }
+
         const res = await oraPromise(api.sendMessage(question), {
             text: question
         })

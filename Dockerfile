@@ -10,11 +10,12 @@ WORKDIR /build
 COPY . .
 RUN yarn
 
-FROM node:19.6.0
+FROM node:19-slim
+
 ENV OPENAI_API_KEY ''
 WORKDIR /app
 COPY --from=builder /build/index.mjs .
-COPY --from=builder /build/node_modules .
+COPY --from=builder /build/node_modules ./node_modules
 COPY --from=ttydBuilder /build/ttyd.x86_64 /app/ttyd
 COPY ./bin .
 
